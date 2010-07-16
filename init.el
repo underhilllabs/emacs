@@ -2,6 +2,7 @@
 ;;;
 ;;; important modules I use: org-mode, remember, gist, tramp, color-theme, org-mobile
 ;;; modules I load but am not sold on yet: ido, erc, twittering-mode (too many authorizations)
+
 ;;;    
 ;;;
 
@@ -24,10 +25,18 @@
 ; lets try this, it opens buffer menu and moves to that buffer
 (global-set-key "\C-x\C-b" 'list-buffers)
 
+;; ljupdate
+(add-to-list 'load-path "~/.emacs.d/vendor/")
+(add-to-list 'load-path "~/.emacs.d/vendor/ljupdate")
+(require 'ljupdate)
+
+;; scpaste.el
+(autoload 'scpaste "scpaste" "Paste the current buffer." t nil)
+
 ;; ido: not into it..
-;;(require 'ido)
-;;(ido-mode t)
-;;(setq ido-enable-flex-matching t) ;; enable fuzzy matching
+(require 'ido)
+(ido-mode t)
+(setq ido-enable-flex-matching t) ;; enable fuzzy matching
 
 ;;;;;;;;;;;;;;;;;;
 ;   How to set and unset key bindings 
@@ -78,6 +87,12 @@
 ;;; load gist mode
 (add-to-list 'load-path "~/.emacs.d/vendor/gist.el")
 (require 'gist)
+
+;; android-mode
+(add-to-list 'load-path "~/.emacs.d/vendor/android-mode/")
+(require 'android-mode)
+(setq android-mode-sdk-dir "~/android-sdk-linux_86/")
+
 
 ;; php-mode
 (autoload 'php-mode "php-mode" "Major mode for editing php code." t)
@@ -212,3 +227,15 @@ browse-url-browser-function 'browse-url-generic)
     (load
      (expand-file-name "~/.emacs.d/elpa/package.el"))
   (package-initialize))
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(lj-fill-function (quote lj-fill-by-paragraph)))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
