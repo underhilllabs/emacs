@@ -111,20 +111,6 @@
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
 
-;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; Org-mode settings
-;;
-;;;;;;;;;;;;;;;;;;;;;
-;; org-mobile settings 
-(require 'org-mobile)
-(setq org-mobile-directory "/scpc:bart@denvertech.org:org/")
-(setq org-mobile-files 
-      (list "~/notes/TODO.org" "~/notes/underhill.org" "~/notes/linode.org"))
-(setq org-mobile-inbox-for-pull "~/notes/mobiles.org")
-;; add keyboard shortcut to run org-mobile-push
-(define-key org-mode-map "\C-cp" 'org-mobile-push)
-
 ;; org-mode
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (global-set-key "\C-cl" 'org-store-link)
