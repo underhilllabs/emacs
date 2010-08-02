@@ -230,6 +230,7 @@ browse-url-browser-function 'browse-url-generic)
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(lj-default-access-level "friends")
  '(lj-fill-function (quote lj-fill-by-paragraph)))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
