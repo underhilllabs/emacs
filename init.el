@@ -25,8 +25,20 @@
 ; lets try this, it opens buffer menu and moves to that buffer
 (global-set-key "\C-x\C-b" 'list-buffers)
 
-;; ljupdate
+
+;; imaxima stuff 
+(add-to-list 'load-path "/usr/share/emacs23/site-lisp/maxima/")
+(autoload 'imaxima "imaxima" "Image support for Maxima." t)
+(setq imaxima-pt-size 9)
+(setq imaxima-fnt-size "large")
+
+
 (add-to-list 'load-path "~/.emacs.d/vendor/")
+
+;; magit
+(require 'magit)
+
+;; ljupdate
 (add-to-list 'load-path "~/.emacs.d/vendor/ljupdate")
 (require 'ljupdate)
 
