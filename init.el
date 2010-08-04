@@ -1,4 +1,4 @@
-;;; Bart's init.el file
+v;;; Bart's init.el file
 ;;;
 ;;; important modules I use: org-mode, remember, gist, tramp, color-theme, org-mobile
 ;;; modules I load but am not sold on yet: ido, erc, twittering-mode (too many authorizations)
@@ -68,8 +68,6 @@
 (add-to-list 'load-path "/usr/share/emacs23/site-lisp/emacs-goodies-el/")
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
-(add-to-list 'load-path "~/.emacs.d/vendor/identica-mode/")
-(require 'identica-mode)
 (add-to-list 'load-path "~/.emacs.d/")
 ;; auth stuff
 (require 'mystuff-init)
