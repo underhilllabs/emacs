@@ -1,4 +1,4 @@
-v;;; Bart's init.el file
+;;; Bart's init.el file
 ;;;
 ;;; important modules I use: org-mode, remember, gist, tramp, color-theme, org-mobile
 ;;; modules I load but am not sold on yet: ido, erc, twittering-mode (too many authorizations)
