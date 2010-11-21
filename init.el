@@ -20,7 +20,7 @@
 ;; Font size
 (define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
-;; magit-status
+;; magit-statuspublic
 (global-set-key (kbd "C-x g") 'magit-status)
 ; lets try this, it opens buffer menu and moves to that buffer
 (global-set-key "\C-x\C-b" 'list-buffers)
@@ -29,7 +29,7 @@
 ;; imaxima stuff 
 (add-to-list 'load-path "/usr/share/emacs23/site-lisp/maxima/")
 (autoload 'imaxima "imaxima" "Image support for Maxima." t)
-(setq imaxima-pt-size 9)
+(setq imaxima-pt-size 11)
 (setq imaxima-fnt-size "large")
 
 
@@ -49,6 +49,10 @@
 (require 'ido)
 (ido-mode t)
 (setq ido-enable-flex-matching t) ;; enable fuzzy matching
+
+;; undo ctrl-z
+(global-set-key (kbd "C-z") 'undo)
+
 
 ;;;;;;;;;;;;;;;;;;
 ;   How to set and unset key bindings 
@@ -72,14 +76,23 @@
 ;; auth stuff
 (require 'mystuff-init)
 
+;; processing-mode stuff
+;;(require 'processing-mode)
+(autoload 'processing-mode "processing-mode" "Processing mode" t)
+(add-to-list 'auto-mode-alist '("\\.pde$" . processing-mode))
+(setq processing-location "~/.emacs.d/processing-mode.el")
+
 ;; clojure-mode stuff
-(add-to-list 'load-path "~/.emacs.d/vendor/clojure-mode/")
-(require 'clojure-mode)
+;;(add-to-list 'load-path "~/.emacs.d/vendor/clojure-mode/")
+;;(require 'clojure-mod)e
 
 ;; color-mode
+;;/usr/share/emacs23/site-lisp/emacs-goodies-el/color-theme.el
 (require 'color-theme)
+(color-theme-initialize)
 (setq color-theme-is-global t)
 (color-theme-robin-hood)
+
 ;;(setq blink-cursor-mode nil)
 
 ;; Twitter-mode
@@ -144,13 +157,13 @@
 
 
 ;;; Emacs IRC client
-(require 'erc)
+;;;(require 'erc)
 
 ;;; set the default browswer
 ;;(setq browse-url-generic-program (executable-find "google-chrome")
 ;; wow, conkeror rocks!! who needs a mouse.
-(setq browse-url-generic-program (executable-find "conkeror")
-browse-url-browser-function 'browse-url-generic)
+;;;(setq browse-url-generic-program (executable-find "conkeror")
+;;;  browse-url-browser-function 'browse-url-generic)
 
 ;; this is the happyblogger org-settings.el file
 (setq org-publish-project-alist
@@ -228,7 +241,7 @@ browse-url-browser-function 'browse-url-generic)
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(lj-default-access-level "friends")
+  ;;'(lj-default-access-level "friends")
  '(lj-fill-function (quote lj-fill-by-paragraph)))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
