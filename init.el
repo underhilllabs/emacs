@@ -25,6 +25,8 @@
 ; lets try this, it opens buffer menu and moves to that buffer
 (global-set-key "\C-x\C-b" 'list-buffers)
 
+;; turn off opening splash screen
+(setq inhibit-splash-screen t)
 
 ;; imaxima stuff 
 (add-to-list 'load-path "/usr/share/emacs23/site-lisp/maxima/")
@@ -78,9 +80,9 @@
 
 ;; processing-mode stuff
 ;;(require 'processing-mode)
-(autoload 'processing-mode "processing-mode" "Processing mode" t)
-(add-to-list 'auto-mode-alist '("\\.pde$" . processing-mode))
-(setq processing-location "~/.emacs.d/processing-mode.el")
+;(autoload 'processing-mode "processing-mode" "Processing mode" t)
+;(add-to-list 'auto-mode-alist '("\\.pde$" . processing-mode))
+;(setq processing-location "~/.emacs.d/processing-mode.el")
 
 ;; clojure-mode stuff
 ;;(add-to-list 'load-path "~/.emacs.d/vendor/clojure-mode/")
@@ -112,9 +114,9 @@
 (require 'gist)
 
 ;; android-mode
-(add-to-list 'load-path "~/.emacs.d/vendor/android-mode/")
-(require 'android-mode)
-(setq android-mode-sdk-dir "~/android-sdk-linux_86/")
+;(add-to-list 'load-path "~/.emacs.d/vendor/android-mode/")
+;(require 'android-mode)
+;(setq android-mode-sdk-dir "~/android-sdk-linux_86/")
 
 
 ;; php-mode
@@ -165,36 +167,6 @@
 ;;;(setq browse-url-generic-program (executable-find "conkeror")
 ;;;  browse-url-browser-function 'browse-url-generic)
 
-;; this is the happyblogger org-settings.el file
-(setq org-publish-project-alist
-      '(
-         ("blog-posts"
-         :base-directory "~/blog/_org/posts/"
-         :base-extension "org"
-         :publishing-directory "~/blog/_posts"
-         :inline-images t
-         :table-of-contents nil
-         :drawers nil
-         :todo-keywords nil ; Skip todo keywords
-         :exclude "draft*" ; TODO fix
-         :section-numbers nil
-         :auto-preamble nil
-         :auto-postamble nil
-         )
-        ("blog-pages" ;; This section is optional.
-         :base-directory "~/blog/_org/pages/"
-         :base-extension "org"
-         :publishing-directory "~/blog/pages"
-         :inline-images t
-         :table-of-contents nil
-         :drawers nil
-         :todo-keywords nil ; Skip todo keywords
-         :section-numbers nil
-         :auto-preamble nil
-         :auto-postamble nil
-         ;; :completion-function
-         )
-        ("blog" :components ("blog-posts" "blog-pages"))))
 
 ;; ========== Place Backup Files in Specific Directory ==========
 ;; Enable backup files.
@@ -203,6 +175,13 @@
 (setq version-control t)
 ;; Save all backup file in this directory, instead of leaving tilde files everywhere 
 (setq backup-directory-alist (quote ((".*" . "~/.emacs_backups/"))))
+
+;; start each session by opening .emacs file (for now)
+(find-file "~/.emacs.d/init.el")
+(find-file "~/python_stuff/cheatsheet_emacs.txt")
+
+;; hit max size when I'm writing lisp stuff
+;;(setq max-specpdl-size 3000)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -224,6 +203,36 @@
 ;;(require 'muse-mode)
 ;;(require 'muse-publish)
 ;;(require 'muse-html)  ;; and so on
+;; this is the happyblogger org-settings.el file
+;;(setq org-publish-project-alist
+;;      '(
+;;         ("blog-posts"
+;;         :base-directory "~/blog/_org/posts/"
+;;         :base-extension "org"
+;;         :publishing-directory "~/blog/_posts"
+;;         :inline-images t
+;;         :table-of-contents nil
+;;         :drawers nil
+;;         :todo-keywords nil ; Skip todo keywords
+;;         :exclude "draft*" ; TODO fix
+;;         :section-numbers nil
+;;         :auto-preamble nil
+;;         :auto-postamble nil
+;;         )
+;;        ("blog-pages" ;; This section is optional.
+;;         :base-directory "~/blog/_org/pages/"
+;;         :base-extension "org"
+;;         :publishing-directory "~/blog/pages"
+;;         :inline-images t
+;;         :table-of-contents nil
+;;         :drawers nil
+;;         :todo-keywords nil ; Skip todo keywords
+;;         :section-numbers nil
+;;         :auto-preamble nil
+;;         :auto-postamble nil
+;;         ;; :completion-function
+;;         )
+;;        ("blog" :components ("blog-posts" "blog-pages"))))
 
 
 
