@@ -94,7 +94,7 @@
 (color-theme-initialize)
 (setq color-theme-is-global t)
 (color-theme-robin-hood)
-
+;;(color-theme-blippblopp)
 ;;(setq blink-cursor-mode nil)
 
 ;; Twitter-mode
