@@ -7,26 +7,32 @@
 ;;;
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; from emacs-starter-kit
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Turn off mouse interface early in startup to avoid momentary display
-;; You really don't need these; trust me.
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+
+;;(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 ;; Font size
 (define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
-;; magit-statuspublic
+;; magit-statuspublic 
 (global-set-key (kbd "C-x g") 'magit-status)
 ; lets try this, it opens buffer menu and moves to that buffer
 (global-set-key "\C-x\C-b" 'list-buffers)
 
 ;; turn off opening splash screen
-(setq inhibit-splash-screen t)
+(setq inhibit-splash-screen t inhibit-startup-echo-area-message t)
+
+;; use system font
+(setq font-use-system-font t)
+
+;;python stuff 
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq-default py-indent-offset 4)
+
+;; automatically make scripts executable
+(add-hook 'after-save-hook
+  'executable-make-buffer-file-executable-if-script-p)
 
 ;; imaxima stuff 
 (add-to-list 'load-path "/usr/share/emacs23/site-lisp/maxima/")
@@ -55,6 +61,10 @@
 ;; undo ctrl-z
 (global-set-key (kbd "C-z") 'undo)
 
+;; Do you a HASKELL!!
+(load "~/.emacs.d/vendor/haskell-mode/haskell-site-file")
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 ;;;;;;;;;;;;;;;;;;
 ;   How to set and unset key bindings 
@@ -139,6 +149,7 @@
 (setq org-agenda-files (list "~/notes/TODO.org"
                              "~/notes/ideas.org" 
                              "~/notes/underhill.org"
+                             "~/notes/metro-hw.org"
 			     "~/notes/denvertech.org"))
 ;; add WAITING to todo keywords
 (setq org-todo-keywords
@@ -250,7 +261,8 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
-  ;;'(lj-default-access-level "friends")
+ '(jde-enable-abbrev-mode t)
+ '(jde-jdk-registry (quote (("1.6.0.22" . "/usr/lib/jvm/java-6-sun/"))))
  '(lj-fill-function (quote lj-fill-by-paragraph)))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
