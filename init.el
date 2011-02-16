@@ -1,12 +1,7 @@
 ;;; Bart's init.el file
 ;;;
-;;; important modules I use: org-mode, remember, gist, tramp, color-theme, org-mobile
+;;; important modules I use: org-mode, JDE, remember, tramp, color-theme, org-mobile
 ;;; modules I load but am not sold on yet: ido, erc, twittering-mode (too many authorizations)
-
-;;;    
-;;;
-
-
 
 ;;(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -34,12 +29,11 @@
 (add-hook 'after-save-hook
   'executable-make-buffer-file-executable-if-script-p)
 
-;; imaxima stuff 
+; imaxima stuff 
 (add-to-list 'load-path "/usr/share/emacs23/site-lisp/maxima/")
 (autoload 'imaxima "imaxima" "Image support for Maxima." t)
 (setq imaxima-pt-size 11)
 (setq imaxima-fnt-size "large")
-
 
 (add-to-list 'load-path "~/.emacs.d/vendor/")
 
@@ -54,9 +48,9 @@
 (autoload 'scpaste "scpaste" "Paste the current buffer." t nil)
 
 ;; ido: not into it..
-(require 'ido)
-(ido-mode t)
-(setq ido-enable-flex-matching t) ;; enable fuzzy matching
+;;(require 'ido)
+;;(ido-mode t)
+;;(setq ido-enable-flex-matching t) ;; enable fuzzy matching
 
 ;; undo ctrl-z
 (global-set-key (kbd "C-z") 'undo)
@@ -80,7 +74,6 @@
 ;   use square brackets for function keys, mouse keys, non-ascii chars
 ;;  (global-set-key [f6] 'line-to-top-of-window)
 
-
 (add-to-list 'load-path "/usr/share/emacs23/site-lisp/emacs-goodies-el/")
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
@@ -94,24 +87,18 @@
 ;(add-to-list 'auto-mode-alist '("\\.pde$" . processing-mode))
 ;(setq processing-location "~/.emacs.d/processing-mode.el")
 
-;; clojure-mode stuff
-;;(add-to-list 'load-path "~/.emacs.d/vendor/clojure-mode/")
-;;(require 'clojure-mod)e
-
 ;; color-mode
 ;;/usr/share/emacs23/site-lisp/emacs-goodies-el/color-theme.el
 (require 'color-theme)
 (color-theme-initialize)
 (setq color-theme-is-global t)
 (color-theme-robin-hood)
+;;(color-theme-cheap-goldenrod)
+;;(color-theme-calm-forest)
+;; use this to try other themes
+;; (color-theme-select)
 ;;(color-theme-blippblopp)
 ;;(setq blink-cursor-mode nil)
-
-;; Twitter-mode
-;;(add-to-list 'load-path "~/.emacs.d/vendor/twittering-mode/")
-;;(require 'twittering-mode)
-;;(global-set-key "\C-ct" 'twittering-mode)
-;;(setq twittering-icon-mode t)
 
 ;; enable tramp for editing remote files 
 (require 'tramp)
@@ -123,11 +110,11 @@
 (add-to-list 'load-path "~/.emacs.d/vendor/gist.el")
 (require 'gist)
 
+;;(add-to-list 'classpath ".")
 ;; android-mode
 ;(add-to-list 'load-path "~/.emacs.d/vendor/android-mode/")
 ;(require 'android-mode)
 ;(setq android-mode-sdk-dir "~/android-sdk-linux_86/")
-
 
 ;; php-mode
 (autoload 'php-mode "php-mode" "Major mode for editing php code." t)
@@ -167,16 +154,14 @@
 	("Review" ?r "* %u %?" "~/notes/reviews.org" "Reviews")
 	("Journal" ?j "* %u %?" "~/notes/journal.org" "Journal")
 	("Garden Journal" ?g "* %u %?" "~/notes/garden.org" "Garden Journal")))
-
-
-;;; Emacs IRC client
-;;;(require 'erc)
-
-;;; set the default browswer
-;;(setq browse-url-generic-program (executable-find "google-chrome")
-;; wow, conkeror rocks!! who needs a mouse.
-;;;(setq browse-url-generic-program (executable-find "conkeror")
-;;;  browse-url-browser-function 'browse-url-generic)
+;; Org-mobile settings
+(require 'org-mobile)
+(setq org-mobile-directory "/scpc:bart@denvertech.org:org/")
+(setq org-mobile-files
+      (list "~/notes/metro-hw.org"))
+(setq org-mobile-inbox-for-pull "~/notes/mobiles.org")
+;; add keyboard shortcut to run org-mobile-push
+(define-key org-mode-map "\C-cp" 'org-mobile-push)
 
 
 ;; ========== Place Backup Files in Specific Directory ==========
@@ -189,16 +174,31 @@
 
 ;; start each session by opening .emacs file (for now)
 (find-file "~/.emacs.d/init.el")
-(find-file "~/python_stuff/cheatsheet_emacs.txt")
+(find-file "~/cheatsheet_emacs.txt")
 
 ;; hit max size when I'm writing lisp stuff
-;;(setq max-specpdl-size 3000)
+;;setq max-specpdl-size 3000)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; dot-emacs junkyard
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Twitter-mode
+;;(add-to-list 'load-path "~/.emacs.d/vendor/twittering-mode/")
+;;(require 'twittering-mode)
+;;(global-set-key "\C-ct" 'twittering-mode)
+;;(setq twittering-icon-mode t)
+
+;;; Emacs IRC client
+;;;(require 'erc)
+
+;;; set the default browswer
+;;(setq browse-url-generic-program (executable-find "google-chrome")
+;; wow, conkeror rocks!! who needs a mouse.
+;;;(setq browse-url-generic-program (executable-find "conkeror")
+;;;  browse-url-browser-function 'browse-url-generic)
 
 ;;; lilypond stuff
 ;(autoload 'LilyPond-mode "lilypond-mode")
@@ -245,7 +245,9 @@
 ;;         )
 ;;        ("blog" :components ("blog-posts" "blog-pages"))))
 
-
+;; clojure-mode stuff
+;;(add-to-list 'load-path "~/.emacs.d/vendor/clojure-mode/")
+;;(require 'clojure-mod)e
 
 ;;; This was installed by package-install.el.
 ;;; This provides support for the package system and
@@ -262,6 +264,8 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(jde-enable-abbrev-mode t)
+ '(jde-global-classpath (split-string classpath jde-classpath-separator))
+ ;;'(jde-global-classpath ".")
  '(jde-jdk-registry (quote (("1.6.0.22" . "/usr/lib/jvm/java-6-sun/"))))
  '(lj-fill-function (quote lj-fill-by-paragraph)))
 (custom-set-faces
