@@ -1,1 +1,15 @@
 mystuff-init.el
+/auto-save-list/.saves-10363-panther-laptop~
+/auto-save-list/.saves-10903-panther-laptop~
+/auto-save-list/.saves-11463-panther-laptop~
+/auto-save-list/.saves-11950-panther-laptop~
+/auto-save-list/.saves-13032-panther-laptop~
+/auto-save-list/.saves-16489-panther-laptop~
+/auto-save-list/*
+/elisp/*
+/vendors/*
+*#
+/elpa/*
+session*
+/.org-id-locations
+/abbrev_defs

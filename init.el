@@ -60,6 +60,9 @@
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
+;;(setq jde-global-classpath "/home/bart/javastuff/")
+;; (getenv "CLASSPATH")
+;;(setq jde-global-classpath nil)
 ;;;;;;;;;;;;;;;;;;
 ;   How to set and unset key bindings 
 ;
@@ -81,6 +84,9 @@
 ;; auth stuff
 (require 'mystuff-init)
 
+;; try new python.el
+(require 'python)
+
 ;; processing-mode stuff
 ;;(require 'processing-mode)
 ;(autoload 'processing-mode "processing-mode" "Processing mode" t)
@@ -93,10 +99,12 @@
 (color-theme-initialize)
 (setq color-theme-is-global t)
 (color-theme-robin-hood)
-;;(color-theme-cheap-goldenrod)
+
+;;(color-theme-goldenrod)
 ;;(color-theme-calm-forest)
 ;; use this to try other themes
 ;; (color-theme-select)
+;;(color-theme-clarity)
 ;;(color-theme-blippblopp)
 ;;(setq blink-cursor-mode nil)
 
@@ -264,8 +272,7 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(jde-enable-abbrev-mode t)
- '(jde-global-classpath (split-string classpath jde-classpath-separator))
- ;;'(jde-global-classpath ".")
+ '(jde-global-classpath (quote ("/home/bart/javastuff/:.")))
  '(jde-jdk-registry (quote (("1.6.0.22" . "/usr/lib/jvm/java-6-sun/"))))
  '(lj-fill-function (quote lj-fill-by-paragraph)))
 (custom-set-faces
