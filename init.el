@@ -17,6 +17,11 @@
 ;; turn off opening splash screen
 (setq inhibit-splash-screen t inhibit-startup-echo-area-message t)
 
+(add-to-list 'load-path "~/.emacs.d/vendor/")
+(add-to-list 'load-path "~/.emacs.d/elisp/")
+(add-to-list 'load-path "~/.emacs.d/")
+
+;; (require 'color-theme-wombat)
 ;; use system font
 (setq font-use-system-font t)
 
@@ -35,7 +40,7 @@
 (setq imaxima-pt-size 11)
 (setq imaxima-fnt-size "large")
 
-(add-to-list 'load-path "~/.emacs.d/vendor/")
+
 
 ;; magit
 (require 'magit)
@@ -78,9 +83,7 @@
 ;;  (global-set-key [f6] 'line-to-top-of-window)
 
 (add-to-list 'load-path "/usr/share/emacs23/site-lisp/emacs-goodies-el/")
-(add-to-list 'load-path "~/.emacs.d/elisp/")
 
-(add-to-list 'load-path "~/.emacs.d/")
 ;; auth stuff
 (require 'mystuff-init)
 
@@ -99,6 +102,8 @@
 (color-theme-initialize)
 (setq color-theme-is-global t)
 (color-theme-robin-hood)
+(require 'color-theme-tango)
+(require 'color-theme-zenburn)
 
 ;;(color-theme-goldenrod)
 ;;(color-theme-calm-forest)
@@ -129,14 +134,16 @@
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
 
+;;
 ;; org-mode
+;;
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 (global-font-lock-mode t)
 (org-remember-insinuate)
 (setq org-directory "~/notes/")
-(setq org-default-notes-file (concat org-directory "/notes.org"))
+(setq org-default-notes-file (concat org-directory "notes.org"))
 (add-to-list 'load-path "~/.emacs.d/vendor/remember")
 (require 'remember)
 ;;(setq remember-data-file "~/notes.txt")
