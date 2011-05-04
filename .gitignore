@@ -7,9 +7,12 @@ mystuff-init.el
 /auto-save-list/.saves-16489-panther-laptop~
 /auto-save-list/*
 /elisp/*
-/vendors/*
+/vendor/*
 *#
 /elpa/*
 session*
 /.org-id-locations
 /abbrev_defs
+/processing-mode.el
+/wlrc.el
+/url/cookies

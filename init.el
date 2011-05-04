@@ -19,7 +19,12 @@
 
 (add-to-list 'load-path "~/.emacs.d/vendor/")
 (add-to-list 'load-path "~/.emacs.d/elisp/")
+(add-to-list 'load-path "~/.emacs.d/vendor/emacs-oauth/")
 (add-to-list 'load-path "~/.emacs.d/")
+(add-to-list 'load-path "~/elisp_stuff/")
+;; solarized theme
+(add-to-list 'load-path "~/.emacs.d/vendor/emacs-color-theme-solarized/")
+
 
 ;; (require 'color-theme-wombat)
 ;; use system font
@@ -34,23 +39,49 @@
 (add-hook 'after-save-hook
   'executable-make-buffer-file-executable-if-script-p)
 
-; imaxima stuff 
-(add-to-list 'load-path "/usr/share/emacs23/site-lisp/maxima/")
-(autoload 'imaxima "imaxima" "Image support for Maxima." t)
-(setq imaxima-pt-size 11)
-(setq imaxima-fnt-size "large")
+;; imaxima stuff 
+; (add-to-list 'load-path "/usr/share/emacs23/site-lisp/maxima/")
+; (autoload 'imaxima "imaxima" "Image support for Maxima." t)
+; (setq imaxima-pt-size 11)
+; (setq imaxima-fnt-size "large")
 
+
+;; identica
+(require 'identica-mode)
+;; how do you want to edit status updates? 
+;;   choices: 'edit-buffer or 'minibuffer
+(setq identica-update-status-method 'edit-buffer)
 
 
 ;; magit
 (require 'magit)
 
+;; jekyll
+(require 'jekyll)
+(global-set-key (kbd "C-c b n") 'jekyll-draft-post)
+(global-set-key (kbd "C-c b P") 'jekyll-publish-post)
+;; (global-set-key (kbd "C-c b p") (lambda () 
+;;                                   (interactive)
+;;                                   (find-file "~/Sources/blog/_posts/")))
+;; (global-set-key (kbd "C-c b d") (lambda () 
+;;                                   (interactive)
+;;                                   (find-file "~/Sources/blog/_drafts/")))
+
+
+
+
+
+(require 'textile-mode)
+
+; netflix-mode
+; (require 'netflix-mode)
+
 ;; ljupdate
-(add-to-list 'load-path "~/.emacs.d/vendor/ljupdate")
-(require 'ljupdate)
+; (add-to-list 'load-path "~/.emacs.d/vendor/ljupdate")
+; (require 'ljupdate)
 
 ;; scpaste.el
-(autoload 'scpaste "scpaste" "Paste the current buffer." t nil)
+; (autoload 'scpaste "scpaste" "Paste the current buffer." t nil)
 
 ;; ido: not into it..
 ;;(require 'ido)
@@ -61,9 +92,9 @@
 (global-set-key (kbd "C-z") 'undo)
 
 ;; Do you a HASKELL!!
-(load "~/.emacs.d/vendor/haskell-mode/haskell-site-file")
-(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+; (load "~/.emacs.d/vendor/haskell-mode/haskell-site-file")
+; (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+; (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 ;;(setq jde-global-classpath "/home/bart/javastuff/")
 ;; (getenv "CLASSPATH")
@@ -104,6 +135,7 @@
 (color-theme-robin-hood)
 (require 'color-theme-tango)
 (require 'color-theme-zenburn)
+(require 'color-theme-solarized)
 
 ;;(color-theme-goldenrod)
 ;;(color-theme-calm-forest)
@@ -148,14 +180,11 @@
 (require 'remember)
 ;;(setq remember-data-file "~/notes.txt")
 (global-set-key "\C-cr" 'org-remember)
-(setq org-agenda-files (list "~/notes/TODO.org"
-                             "~/notes/ideas.org" 
-                             "~/notes/underhill.org"
-                             "~/notes/metro-hw.org"
-			     "~/notes/denvertech.org"))
+(setq org-agenda-files (list "~/notes/underhill.org"
+                             "~/notes/metro-hw.org"))
 ;; add WAITING to todo keywords
 (setq org-todo-keywords
-      '((sequence "TODO" "WAITING" "DONE")))
+      '((sequence "TODO" "DONE")))
 ;; set number of days to show in agenda to 7
 (setq org-agenda-ndays 7)
 ;; start on current day, not Monday
@@ -166,9 +195,9 @@
 (setq org-remember-templates
       '(("Todo" ?t "* TODO %?\n  SCHEDULED: %t" "~/notes/TODO.org" "My Todos")
 	("Note" ?n "* %? %u" "~/notes/notes.org" "Notes")
-	("Review" ?r "* %u %?" "~/notes/reviews.org" "Reviews")
-	("Journal" ?j "* %u %?" "~/notes/journal.org" "Journal")
-	("Garden Journal" ?g "* %u %?" "~/notes/garden.org" "Garden Journal")))
+	;; ("Review" ?r "* %u %?" "~/notes/reviews.org" "Reviews")
+	("Journal" ?j "* %u %?" "~/notes/journal.org" "Journal")))
+	;; ("Garden Journal" ?g "* %u %?" "~/notes/garden.org" "Garden Journal")
 ;; Org-mobile settings
 (require 'org-mobile)
 (setq org-mobile-directory "/scpc:bart@denvertech.org:org/")
@@ -185,12 +214,13 @@
 ;; Enable versioning with default values (keep five last versions, I think!)
 (setq version-control t)
 ;; Save all backup file in this directory, instead of leaving tilde files everywhere 
-(setq backup-directory-alist (quote ((".*" . "~/.emacs_backups/"))))
+(setq backup-directory-alist (quote ((".*" . "~/.my_emacs_backups/"))))
 
 ;; start each session by opening .emacs file (for now)
 (find-file "~/.emacs.d/init.el")
 (find-file "~/cheatsheet_emacs.txt")
 
+(server-start)
 ;; hit max size when I'm writing lisp stuff
 ;;setq max-specpdl-size 3000)
 
