@@ -220,7 +220,6 @@
 (find-file "~/.emacs.d/init.el")
 (find-file "~/cheatsheet_emacs.txt")
 
-(server-start)
 ;; hit max size when I'm writing lisp stuff
 ;;setq max-specpdl-size 3000)
 
