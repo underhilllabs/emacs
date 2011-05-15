@@ -22,9 +22,13 @@
 (add-to-list 'load-path "~/.emacs.d/vendor/emacs-oauth/")
 (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'load-path "~/elisp_stuff/")
+(add-to-list 'load-path "~/vendor/pink-bliss/")
 ;; solarized theme
 (add-to-list 'load-path "~/.emacs.d/vendor/emacs-color-theme-solarized/")
 
+;; Rinari
+(add-to-list 'load-path "~/.emacs.d/vendor/rinari/")
+(require 'rinari)
 
 ;; (require 'color-theme-wombat)
 ;; use system font
@@ -46,13 +50,15 @@
 ; (setq imaxima-fnt-size "large")
 
 
+
 ;; identica
 (require 'identica-mode)
 ;; how do you want to edit status updates? 
 ;;   choices: 'edit-buffer or 'minibuffer
 (setq identica-update-status-method 'edit-buffer)
 
-
+;; pink-bliss
+; (require 'pink-bliss)
 ;; magit
 (require 'magit)
 
@@ -66,8 +72,6 @@
 ;; (global-set-key (kbd "C-c b d") (lambda () 
 ;;                                   (interactive)
 ;;                                   (find-file "~/Sources/blog/_drafts/")))
-
-
 
 
 
@@ -136,6 +140,8 @@
 (require 'color-theme-tango)
 (require 'color-theme-zenburn)
 (require 'color-theme-solarized)
+(require 'color-theme-inkpot)
+(require 'color-theme-desertex)
 
 ;;(color-theme-goldenrod)
 ;;(color-theme-calm-forest)
@@ -206,6 +212,9 @@
 (setq org-mobile-inbox-for-pull "~/notes/mobiles.org")
 ;; add keyboard shortcut to run org-mobile-push
 (define-key org-mode-map "\C-cp" 'org-mobile-push)
+
+;; org-mode toodledo
+(require 'org-toodledo.el)
 
 
 ;; ========== Place Backup Files in Specific Directory ==========
@@ -311,9 +320,4 @@
  '(jde-global-classpath (quote ("/home/bart/javastuff/:.")))
  '(jde-jdk-registry (quote (("1.6.0.22" . "/usr/lib/jvm/java-6-sun/"))))
  '(lj-fill-function (quote lj-fill-by-paragraph)))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
+
