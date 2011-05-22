@@ -1,4 +1,4 @@
-;;; Bart's init.el file
+;; Bart's init.el file
 ;;;
 ;;; important modules I use: org-mode, JDE, remember, tramp, color-theme, org-mobile
 ;;; modules I load but am not sold on yet: ido, erc, twittering-mode (too many authorizations)
@@ -6,13 +6,24 @@
 ;;(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+
+;;;;;;
+;;
+;; Set kbd shortcuts
+;;
+;;;;;;
+
 ;; Font size
 (define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
-;; magit-statuspublic 
+;; magit-status
 (global-set-key (kbd "C-x g") 'magit-status)
 ; lets try this, it opens buffer menu and moves to that buffer
 (global-set-key "\C-x\C-b" 'list-buffers)
+(global-set-key (kbd "C-M-;") 'comment-region)
+;; UNDO ctrl-z
+(global-set-key (kbd "C-z") 'undo)
+
 
 ;; turn off opening splash screen
 (setq inhibit-splash-screen t inhibit-startup-echo-area-message t)
@@ -22,13 +33,20 @@
 (add-to-list 'load-path "~/.emacs.d/vendor/emacs-oauth/")
 (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'load-path "~/elisp_stuff/")
-(add-to-list 'load-path "~/vendor/pink-bliss/")
+(add-to-list 'load-path "~/elisp_stuff/color-theme-seamus/")
+;;(add-to-list 'load-path "~/vendor/pink-bliss/")
 ;; solarized theme
-(add-to-list 'load-path "~/.emacs.d/vendor/emacs-color-theme-solarized/")
+;;(add-to-list 'load-path "~/.emacs.d/vendor/emacs-color-theme-solarized/")
 
-;; Rinari
+;; Rinari, ruby on rails mode
 (add-to-list 'load-path "~/.emacs.d/vendor/rinari/")
 (require 'rinari)
+
+;; graphviz
+(require 'graphviz-dot-mode)
+(add-to-list 'auto-mode-alist '("\\.dot\\'" . graphviz-dot-mode))
+(add-to-list 'auto-mode-alist '("\\.gv\\'" . graphviz-dot-mode))
+
 
 ;; (require 'color-theme-wombat)
 ;; use system font
@@ -58,7 +76,8 @@
 (setq identica-update-status-method 'edit-buffer)
 
 ;; pink-bliss
-; (require 'pink-bliss)
+;;(require 'pink-bliss)
+
 ;; magit
 (require 'magit)
 
@@ -92,8 +111,7 @@
 ;;(ido-mode t)
 ;;(setq ido-enable-flex-matching t) ;; enable fuzzy matching
 
-;; undo ctrl-z
-(global-set-key (kbd "C-z") 'undo)
+
 
 ;; Do you a HASKELL!!
 ; (load "~/.emacs.d/vendor/haskell-mode/haskell-site-file")
@@ -126,11 +144,12 @@
 (require 'python)
 
 ;; processing-mode stuff
-;;(require 'processing-mode)
-;(autoload 'processing-mode "processing-mode" "Processing mode" t)
-;(add-to-list 'auto-mode-alist '("\\.pde$" . processing-mode))
-;(setq processing-location "~/.emacs.d/processing-mode.el")
+(require 'processing-mode)
+(autoload 'processing-mode "processing-mode" "Processing mode" t)
+(add-to-list 'auto-mode-alist '("\\.pde$" . processing-mode))
+(setq processing-location "~/.emacs.d/processing-mode.el")
 
+(global-font-lock-mode t)
 ;; color-mode
 ;;/usr/share/emacs23/site-lisp/emacs-goodies-el/color-theme.el
 (require 'color-theme)
@@ -139,9 +158,10 @@
 (color-theme-robin-hood)
 (require 'color-theme-tango)
 (require 'color-theme-zenburn)
-(require 'color-theme-solarized)
-(require 'color-theme-inkpot)
-(require 'color-theme-desertex)
+(require 'color-theme-seamus)
+;;(require 'color-theme-solarized)
+;;(require 'color-theme-inkpot)
+;;(require 'color-theme-desertex)
 
 ;;(color-theme-goldenrod)
 ;;(color-theme-calm-forest)
@@ -150,7 +170,7 @@
 ;;(color-theme-clarity)
 ;;(color-theme-blippblopp)
 ;;(setq blink-cursor-mode nil)
-
+;;(message "made it passed the color shit")
 ;; enable tramp for editing remote files 
 (require 'tramp)
 
@@ -178,7 +198,7 @@
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
-(global-font-lock-mode t)
+
 (org-remember-insinuate)
 (setq org-directory "~/notes/")
 (setq org-default-notes-file (concat org-directory "notes.org"))
@@ -186,7 +206,8 @@
 (require 'remember)
 ;;(setq remember-data-file "~/notes.txt")
 (global-set-key "\C-cr" 'org-remember)
-(setq org-agenda-files (list "~/notes/underhill.org"
+(setq org-agenda-files (list "~/notes/personal.org"
+                             "~/notes/underhill.org"
                              "~/notes/metro-hw.org"))
 ;; add WAITING to todo keywords
 (setq org-todo-keywords
@@ -196,14 +217,36 @@
 ;; start on current day, not Monday
 (setq org-agenda-start-on-weekday nil)
 ;; log when todo items are toggled to done
-(setq org-log-done 'note)
+(setq org-log-done 'time)
 ;;; org-mode remember templates
 (setq org-remember-templates
-      '(("Todo" ?t "* TODO %?\n  SCHEDULED: %t" "~/notes/TODO.org" "My Todos")
+      '(("Todo" ?t "* TODO %?\n  SCHEDULED: %t" "~/notes/personal.org" "My Todos")
 	("Note" ?n "* %? %u" "~/notes/notes.org" "Notes")
 	;; ("Review" ?r "* %u %?" "~/notes/reviews.org" "Reviews")
 	("Journal" ?j "* %u %?" "~/notes/journal.org" "Journal")))
 	;; ("Garden Journal" ?g "* %u %?" "~/notes/garden.org" "Garden Journal")
+
+;; fontify code in code blocks
+(setq org-src-fontify-natively t)
+
+
+;; 
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
+;; Org-babel
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (R . t)
+   (ruby . t)
+   (dot . t)
+   (python . t)
+   (scheme . t)))
+
+; Do not prompt to confirm evaluation
+; This may be dangerous - make sure you understand the consequences
+; of setting this -- see the docstring for details
+;;(setq org-confirm-babel-evaluate nil)
+
 ;; Org-mobile settings
 (require 'org-mobile)
 (setq org-mobile-directory "/scpc:bart@denvertech.org:org/")
@@ -214,7 +257,7 @@
 (define-key org-mode-map "\C-cp" 'org-mobile-push)
 
 ;; org-mode toodledo
-(require 'org-toodledo.el)
+;;(require 'org-toodledo.el)
 
 
 ;; ========== Place Backup Files in Specific Directory ==========
@@ -250,7 +293,7 @@
 ;;; set the default browswer
 ;;(setq browse-url-generic-program (executable-find "google-chrome")
 ;; wow, conkeror rocks!! who needs a mouse.
-;;;(setq browse-url-generic-program (executable-find "conkeror")
+;;(setq browse-url-generic-program (executable-find "conkeror")
 ;;;  browse-url-browser-function 'browse-url-generic)
 
 ;;; lilypond stuff
