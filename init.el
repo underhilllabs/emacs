@@ -24,7 +24,6 @@
 ;; UNDO ctrl-z
 (global-set-key (kbd "C-z") 'undo)
 
-
 ;; turn off opening splash screen
 (setq inhibit-splash-screen t inhibit-startup-echo-area-message t)
 
@@ -47,7 +46,6 @@
 (add-to-list 'auto-mode-alist '("\\.dot\\'" . graphviz-dot-mode))
 (add-to-list 'auto-mode-alist '("\\.gv\\'" . graphviz-dot-mode))
 
-
 ;; (require 'color-theme-wombat)
 ;; use system font
 (setq font-use-system-font t)
@@ -66,8 +64,6 @@
 ; (autoload 'imaxima "imaxima" "Image support for Maxima." t)
 ; (setq imaxima-pt-size 11)
 ; (setq imaxima-fnt-size "large")
-
-
 
 ;; identica
 (require 'identica-mode)
@@ -92,9 +88,7 @@
 ;;                                   (interactive)
 ;;                                   (find-file "~/Sources/blog/_drafts/")))
 
-
-
-(require 'textile-mode)
+;(require 'textile-mode)
 
 ; netflix-mode
 ; (require 'netflix-mode)
@@ -110,8 +104,6 @@
 ;;(require 'ido)
 ;;(ido-mode t)
 ;;(setq ido-enable-flex-matching t) ;; enable fuzzy matching
-
-
 
 ;; Do you a HASKELL!!
 ; (load "~/.emacs.d/vendor/haskell-mode/haskell-site-file")
@@ -162,7 +154,6 @@
 ;;(require 'color-theme-solarized)
 ;;(require 'color-theme-inkpot)
 ;;(require 'color-theme-desertex)
-
 ;;(color-theme-goldenrod)
 ;;(color-theme-calm-forest)
 ;; use this to try other themes
@@ -202,13 +193,20 @@
 (org-remember-insinuate)
 (setq org-directory "~/notes/")
 (setq org-default-notes-file (concat org-directory "notes.org"))
-(add-to-list 'load-path "~/.emacs.d/vendor/remember")
+;;(add-to-list 'load-path "~/.emacs.d/vendor/remember")
 (require 'remember)
-;;(setq remember-data-file "~/notes.txt")
-(global-set-key "\C-cr" 'org-remember)
-(setq org-agenda-files (list "~/notes/personal.org"
-                             "~/notes/underhill.org"
-                             "~/notes/metro-hw.org"))
+(setq remember-data-file "~/notes.txt")
+(global-set-key "\C-cc" 'org-capture)
+;; this is set via C-c [ now
+;(setq org-agenda-files (list "~/notes/personal.org"
+;                             "~/notes/underhill.org"
+;                             "~/notes/metro-hw.org"))
+
+(setq org-capture-templates
+      '(("j" "Journal" entry (file+datetree "~/notes/journal.org") "* %?\nEntered on %U\n %i\n %a")  
+        ("t" "TODO" entry (file+headline "~/notes/personal.org" "Tasks") "** TODO %?\n %i\n %a ") 
+        ("c" "Homework Calculus" entry (file+headline "~/notes/metro-hw.org" "Calc III") "** %?\nDEADLINE:%^{Due date:}t " )
+        ("p" "Homework Probs and Stats" entry (file+headline "~/notes/metro-hw.org" "Probs and Stats") "** %?\nDEADLINE:%^{Due date:}t " )))
 ;; add WAITING to todo keywords
 (setq org-todo-keywords
       '((sequence "TODO" "DONE")))
@@ -218,6 +216,8 @@
 (setq org-agenda-start-on-weekday nil)
 ;; log when todo items are toggled to done
 (setq org-log-done 'time)
+;; log when a recurring todo was done
+(setq org-log-repeat 'time)
 ;;; org-mode remember templates
 (setq org-remember-templates
       '(("Todo" ?t "* TODO %?\n  SCHEDULED: %t" "~/notes/personal.org" "My Todos")
@@ -228,7 +228,6 @@
 
 ;; fontify code in code blocks
 (setq org-src-fontify-natively t)
-
 
 ;; 
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
@@ -259,7 +258,6 @@
 ;; org-mode toodledo
 ;;(require 'org-toodledo.el)
 
-
 ;; ========== Place Backup Files in Specific Directory ==========
 ;; Enable backup files.
 (setq make-backup-files t)
@@ -272,6 +270,9 @@
 (find-file "~/.emacs.d/init.el")
 (find-file "~/cheatsheet_emacs.txt")
 
+
+(require 'edit-server)
+(edit-server-start)
 ;; hit max size when I'm writing lisp stuff
 ;;setq max-specpdl-size 3000)
 
@@ -290,60 +291,55 @@
 ;;; Emacs IRC client
 ;;;(require 'erc)
 
-;;; set the default browswer
-;;(setq browse-url-generic-program (executable-find "google-chrome")
-;; wow, conkeror rocks!! who needs a mouse.
-;;(setq browse-url-generic-program (executable-find "conkeror")
-;;;  browse-url-browser-function 'browse-url-generic)
-
 ;;; lilypond stuff
 ;(autoload 'LilyPond-mode "lilypond-mode")
-;(setq auto-mode-alist
-;     (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
-;(add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
-
-;; php-mode-improved.el
-;;(setq load-path (add-to-list 'load-path "~/.emacs.d/elisp/php-mode-improved.el"))
-
-;; muse
-;;(add-to-list 'load-path "/usr/share/emacs/site-lisp/muse-3.20/lisp/")
-;;(require 'muse-mode)
-;;(require 'muse-publish)
-;;(require 'muse-html)  ;; and so on
-;; this is the happyblogger org-settings.el file
-;;(setq org-publish-project-alist
-;;      '(
-;;         ("blog-posts"
-;;         :base-directory "~/blog/_org/posts/"
-;;         :base-extension "org"
-;;         :publishing-directory "~/blog/_posts"
-;;         :inline-images t
-;;         :table-of-contents nil
-;;         :drawers nil
-;;         :todo-keywords nil ; Skip todo keywords
-;;         :exclude "draft*" ; TODO fix
-;;         :section-numbers nil
-;;         :auto-preamble nil
-;;         :auto-postamble nil
-;;         )
-;;        ("blog-pages" ;; This section is optional.
-;;         :base-directory "~/blog/_org/pages/"
-;;         :base-extension "org"
-;;         :publishing-directory "~/blog/pages"
-;;         :inline-images t
-;;         :table-of-contents nil
-;;         :drawers nil
-;;         :todo-keywords nil ; Skip todo keywords
-;;         :section-numbers nil
-;;         :auto-preamble nil
-;;         :auto-postamble nil
-;;         ;; :completion-function
-;;         )
-;;        ("blog" :components ("blog-posts" "blog-pages"))))
-
-;; clojure-mode stuff
-;;(add-to-list 'load-path "~/.emacs.d/vendor/clojure-mode/")
-;;(require 'clojure-mod)e
+(setq auto-mode-alist;;(setq org-publish-project-alist
+     (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
+(add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
+;; majorursa.net
+(setq org-publish-project-alist
+      '(
+         ("blog-posts"
+         :base-directory "~/webdev/posts/"
+         :author "Seamys Grayshanks"
+         :email "seamys@majorursa.net"
+         :base-extension "org"
+         :publishing-directory "/ssh:grayjay@denvertech.org:~/public_html/mu/"
+         :inline-images t
+         :makeindex
+         :table-of-contents nil
+         :link-up "index.html"
+         :drawers nil
+         :todo-keywords nil ; Skip todo keywords
+         :exclude "draft*" ; TODO fix
+         :section-numbers nil
+         :auto-preamble nil
+         :auto-postamble nil
+         )
+         ("blog-static"
+          :base-directory "~/webdev/posts/"
+          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+          :publishing-directory "/ssh:grayjay@denvertech.org:~/public_html/mu/"
+          :recursive t
+          :publishing-function org-publish-attachment
+          )
+        ("blog-pages" ;; This section is optional.
+         :base-directory "~/webdev/pages/"
+         :author "Seamys Grayshanks"
+         :email "seamys@majorursa.net"
+         :base-extension "org"
+         :publishing-directory "/ssh:grayjay@denvertech.org:~/public_html/mu/pages/"
+         :inline-images t
+         :table-of-contents nil
+         :drawers nil
+         :todo-keywords nil ; Skip todo keywords
+         :section-numbers nil
+         :auto-preamble nil
+         :auto-postamble nil
+         ;; :completion-function
+         )
+        ("blog" :components ("blog-posts" "blog-pages" "blog-static"))))
+      
 
 ;;; This was installed by package-install.el.
 ;;; This provides support for the package system and
@@ -362,5 +358,13 @@
  '(jde-enable-abbrev-mode t)
  '(jde-global-classpath (quote ("/home/bart/javastuff/:.")))
  '(jde-jdk-registry (quote (("1.6.0.22" . "/usr/lib/jvm/java-6-sun/"))))
- '(lj-fill-function (quote lj-fill-by-paragraph)))
+ '(lj-fill-function (quote lj-fill-by-paragraph))
+ '(org-agenda-files (quote ("~/notes/orgmodestuff.org" "~/notes/personal.org" "~/notes/underhill.org" "~/notes/metro-hw.org")))
+ '(org-modules (quote (org-bbdb org-bibtex org-docview org-gnus org-info org-jsinfo org-habit org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m))))
 
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
