@@ -66,10 +66,10 @@
 ; (setq imaxima-fnt-size "large")
 
 ;; identica
-(require 'identica-mode)
+;;(require 'identica-mode)
 ;; how do you want to edit status updates? 
 ;;   choices: 'edit-buffer or 'minibuffer
-(setq identica-update-status-method 'edit-buffer)
+;;(setq identica-update-status-method 'edit-buffer)
 
 ;; pink-bliss
 ;;(require 'pink-bliss)
@@ -78,9 +78,9 @@
 (require 'magit)
 
 ;; jekyll
-(require 'jekyll)
-(global-set-key (kbd "C-c b n") 'jekyll-draft-post)
-(global-set-key (kbd "C-c b P") 'jekyll-publish-post)
+;;(require 'jekyll)
+;;(global-set-key (kbd "C-c b n") 'jekyll-draft-post)
+;;(global-set-key (kbd "C-c b P") 'jekyll-publish-post)
 ;; (global-set-key (kbd "C-c b p") (lambda () 
 ;;                                   (interactive)
 ;;                                   (find-file "~/Sources/blog/_posts/")))
@@ -136,10 +136,10 @@
 (require 'python)
 
 ;; processing-mode stuff
-(require 'processing-mode)
-(autoload 'processing-mode "processing-mode" "Processing mode" t)
-(add-to-list 'auto-mode-alist '("\\.pde$" . processing-mode))
-(setq processing-location "~/.emacs.d/processing-mode.el")
+;; (require 'processing-mode)
+;; (autoload 'processing-mode "processing-mode" "Processing mode" t)
+;; (add-to-list 'auto-mode-alist '("\\.pde$" . processing-mode))
+;; (setq processing-location "~/.emacs.d/processing-mode.el")
 
 (global-font-lock-mode t)
 ;; color-mode
@@ -169,8 +169,8 @@
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;;; load gist mode
-(add-to-list 'load-path "~/.emacs.d/vendor/gist.el")
-(require 'gist)
+;; (add-to-list 'load-path "~/.emacs.d/vendor/gist.el")
+;; (require 'gist)
 
 ;;(add-to-list 'classpath ".")
 ;; android-mode
@@ -190,12 +190,22 @@
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 
-(org-remember-insinuate)
+;; old remember stuff
+;;(org-remember-insinuate)
+;;(require 'remember)
+;;(setq remember-data-file "~/notes.txt")
+;;(add-to-list 'load-path "~/.emacs.d/vendor/remember")
+;;; org-mode remember templates
+;; (setq org-remember-templates
+;;       '(("Todo" ?t "* TODO %?\n  SCHEDULED: %t" "~/notes/personal.org" "My Todos")
+;; 	("Note" ?n "* %? %u" "~/notes/notes.org" "Notes")
+;; 	;; ("Review" ?r "* %u %?" "~/notes/reviews.org" "Reviews")
+;; 	("Journal" ?j "* %u %?" "~/notes/journal.org" "Journal")))
+;; 	;; ("Garden Journal" ?g "* %u %?" "~/notes/garden.org" "Garden Journal")
+
+
 (setq org-directory "~/notes/")
 (setq org-default-notes-file (concat org-directory "notes.org"))
-;;(add-to-list 'load-path "~/.emacs.d/vendor/remember")
-(require 'remember)
-(setq remember-data-file "~/notes.txt")
 (global-set-key "\C-cc" 'org-capture)
 ;; this is set via C-c [ now
 ;(setq org-agenda-files (list "~/notes/personal.org"
@@ -218,18 +228,11 @@
 (setq org-log-done 'time)
 ;; log when a recurring todo was done
 (setq org-log-repeat 'time)
-;;; org-mode remember templates
-(setq org-remember-templates
-      '(("Todo" ?t "* TODO %?\n  SCHEDULED: %t" "~/notes/personal.org" "My Todos")
-	("Note" ?n "* %? %u" "~/notes/notes.org" "Notes")
-	;; ("Review" ?r "* %u %?" "~/notes/reviews.org" "Reviews")
-	("Journal" ?j "* %u %?" "~/notes/journal.org" "Journal")))
-	;; ("Garden Journal" ?g "* %u %?" "~/notes/garden.org" "Garden Journal")
 
 ;; fontify code in code blocks
 (setq org-src-fontify-natively t)
 
-;; 
+;; display images, graphs after code execution
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
 ;; Org-babel
 (org-babel-do-load-languages
@@ -244,7 +247,14 @@
 ; Do not prompt to confirm evaluation
 ; This may be dangerous - make sure you understand the consequences
 ; of setting this -- see the docstring for details
-;;(setq org-confirm-babel-evaluate nil)
+(setq org-confirm-babel-evaluate 'y-or-no-p)
+
+(defun my-org-confirm-babel-evaluate (lang body)
+  (not (string= lang "ditaa"))
+  (not (string= lang "dot"))
+  (not (string= lang "R"))
+  (not (string= lang "ruby")))  ; don't ask for ditaa, R, dot or Ruby
+(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 
 ;; Org-mobile settings
 (require 'org-mobile)
@@ -293,9 +303,9 @@
 
 ;;; lilypond stuff
 ;(autoload 'LilyPond-mode "lilypond-mode")
-(setq auto-mode-alist;;(setq org-publish-project-alist
-     (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
-(add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
+;; (setq auto-mode-alist;;
+;;      (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
+;; (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
 ;; majorursa.net
 (setq org-publish-project-alist
       '(
@@ -306,15 +316,17 @@
          :base-extension "org"
          :publishing-directory "/ssh:grayjay@denvertech.org:~/public_html/mu/"
          :inline-images t
-         :makeindex
+         :makeindex nil
          :table-of-contents nil
-         :link-up "index.html"
+         :link-up "./index.html"
          :drawers nil
          :todo-keywords nil ; Skip todo keywords
          :exclude "draft*" ; TODO fix
          :section-numbers nil
          :auto-preamble nil
          :auto-postamble nil
+         :recursive t
+         :style-extra "<link rel='stylesheet' href='http://majorursa.net/my-orgmode.css' type='text/css'/><link href='http://fonts.googleapis.com/css?family=Ubuntu:regular,italic,bold' rel='stylesheet' type='text/css'/>"
          )
          ("blog-static"
           :base-directory "~/webdev/posts/"
@@ -359,7 +371,7 @@
  '(jde-global-classpath (quote ("/home/bart/javastuff/:.")))
  '(jde-jdk-registry (quote (("1.6.0.22" . "/usr/lib/jvm/java-6-sun/"))))
  '(lj-fill-function (quote lj-fill-by-paragraph))
- '(org-agenda-files (quote ("~/notes/orgmodestuff.org" "~/notes/personal.org" "~/notes/underhill.org" "~/notes/metro-hw.org")))
+ '(org-agenda-files (quote ("~/notes/woc/woc-schedule.org" "~/notes/orgmodestuff.org" "~/notes/personal.org" "~/notes/underhill.org" "~/notes/metro-hw.org")))
  '(org-modules (quote (org-bbdb org-bibtex org-docview org-gnus org-info org-jsinfo org-habit org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m))))
 
 (custom-set-faces
