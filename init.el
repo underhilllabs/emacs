@@ -106,9 +106,9 @@
 ;;(setq ido-enable-flex-matching t) ;; enable fuzzy matching
 
 ;; Do you a HASKELL!!
-; (load "~/.emacs.d/vendor/haskell-mode/haskell-site-file")
-; (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-; (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(load "~/.emacs.d/vendor/haskell-mode/haskell-site-file")
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 ;;(setq jde-global-classpath "/home/bart/javastuff/")
 ;; (getenv "CLASSPATH")
@@ -190,6 +190,8 @@
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 
+
+(set-fill-column 80)
 ;; old remember stuff
 ;;(org-remember-insinuate)
 ;;(require 'remember)
@@ -211,6 +213,16 @@
 ;(setq org-agenda-files (list "~/notes/personal.org"
 ;                             "~/notes/underhill.org"
 ;                             "~/notes/metro-hw.org"))
+
+
+;; count words in buffer
+(defun word-count nil "Count words in buffer" (interactive)
+(shell-command-on-region (point-min) (point-max) "wc -w"))
+
+;; word count minor mode
+(autoload 'word-count-mode "word-count"
+  "Minor mode to count words." t nil)
+(global-set-key "\M-+" 'word-count-mode)
 
 (setq org-capture-templates
       '(("j" "Journal" entry (file+datetree "~/notes/journal.org") "* %?\nEntered on %U\n %i\n %a")  
@@ -283,8 +295,19 @@
 
 (require 'edit-server)
 (edit-server-start)
+(server-start)
 ;; hit max size when I'm writing lisp stuff
 ;;setq max-specpdl-size 3000)
+
+
+(defun confirm-exit-emacs ()
+        "ask for confirmation before exiting emacs"
+        (interactive)
+        (if (yes-or-no-p "Are you sure you want to exit? ")
+                (save-buffers-kill-emacs)))
+
+(global-unset-key "\C-x\C-c")
+(global-set-key "\C-x\C-c" 'confirm-exit-emacs)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -297,9 +320,6 @@
 ;;(require 'twittering-mode)
 ;;(global-set-key "\C-ct" 'twittering-mode)
 ;;(setq twittering-icon-mode t)
-
-;;; Emacs IRC client
-;;;(require 'erc)
 
 ;;; lilypond stuff
 ;(autoload 'LilyPond-mode "lilypond-mode")
@@ -353,6 +373,57 @@
         ("blog" :components ("blog-posts" "blog-pages" "blog-static"))))
       
 
+;; #+LaTeX_CLASS: beamer in org files
+;; (unless (boundp 'org-export-latex-classes)
+;;   (setq org-export-latex-classes nil))
+;; (add-to-list 'org-export-latex-classes
+;;   ;; beamer class, for presentations
+;;   '("beamer"
+;;      "\\documentclass[11pt]{beamer}\n
+;;       \\mode<{{{beamermode}}}>\n
+;;       \\usetheme{{{{beamertheme}}}}\n
+;;       \\usecolortheme{{{{beamercolortheme}}}}\n
+;;       \\beamertemplateballitem\n
+;;       \\setbeameroption{show notes}
+;;       \\usepackage[utf8]{inputenc}\n
+;;       \\usepackage[T1]{fontenc}\n
+;;       \\usepackage{hyperref}\n
+;;       \\usepackage{color}
+;;       \\usepackage{listings}
+;;       \\lstset{numbers=none,language=[ISO]C++,tabsize=4,
+;;   frame=single,
+;;   basicstyle=\\small,
+;;   showspaces=false,showstringspaces=false,
+;;   showtabs=false,
+;;   keywordstyle=\\color{blue}\\bfseries,
+;;   commentstyle=\\color{red},
+;;   }\n
+;;       \\usepackage{verbatim}\n
+;;       \\institute{{{{beamerinstitute}}}}\n          
+;;        \\subject{{{{beamersubject}}}}\n"
+
+;;      ("\\section{%s}" . "\\section*{%s}")
+     
+;;      ("\\begin{frame}[fragile]\\frametitle{%s}"
+;;        "\\end{frame}"
+;;        "\\begin{frame}[fragile]\\frametitle{%s}"
+;;        "\\end{frame}")))
+;; article class
+;; (add-to-list 'org-export-latex-classes
+;;              '("article"
+;;                "\\documentclass{article}"
+;;                ("\\section{%s}" . "\\section*{%s}")))  
+
+;; (add-to-list 'org-export-latex-classes
+;;              '("article"
+;;                "\\documentclass{article}"
+;;                ("\\section{%s}" . "\\section*{%s}")
+;;                ("\\subsection{%s}" . "\\subsection*{%s}")
+;;                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+;;                ("\\paragraph{%s}" . "\\paragraph*{%s}")
+;;                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+
 ;;; This was installed by package-install.el.
 ;;; This provides support for the package system and
 ;;; interfacing with ELPA, the package archive.
@@ -371,7 +442,7 @@
  '(jde-global-classpath (quote ("/home/bart/javastuff/:.")))
  '(jde-jdk-registry (quote (("1.6.0.22" . "/usr/lib/jvm/java-6-sun/"))))
  '(lj-fill-function (quote lj-fill-by-paragraph))
- '(org-agenda-files (quote ("~/notes/woc/woc-schedule.org" "~/notes/orgmodestuff.org" "~/notes/personal.org" "~/notes/underhill.org" "~/notes/metro-hw.org")))
+ '(org-agenda-files (quote ("~/notes/blogposts.org" "~/notes/underhill.org" "~/notes/metro-hw.org")))
  '(org-modules (quote (org-bbdb org-bibtex org-docview org-gnus org-info org-jsinfo org-habit org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m))))
 
 (custom-set-faces
