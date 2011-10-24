@@ -41,6 +41,10 @@
 (add-to-list 'load-path "~/.emacs.d/vendor/rinari/")
 (require 'rinari)
 
+;; gas-mode for assembly
+(require 'gas-mode)
+(add-to-list 'auto-mode-alist '("\\.S\\'" . gas-mode))
+
 ;; graphviz
 (require 'graphviz-dot-mode)
 (add-to-list 'auto-mode-alist '("\\.dot\\'" . graphviz-dot-mode))
