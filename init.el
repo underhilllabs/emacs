@@ -42,8 +42,20 @@
 (require 'rinari)
 
 ;; gas-mode for assembly
-(require 'gas-mode)
-(add-to-list 'auto-mode-alist '("\\.S\\'" . gas-mode))
+;; (require 'gas-mode)
+;; (add-to-list 'auto-mode-alist '("\\.S\\'" . gas-mode))
+
+;; coffee-mode!!
+(add-to-list 'load-path "~/.emacs.d/vendor/coffee-mode")
+(require 'coffee-mode)
+;; idiomatic coffee-script uses 2 spaces, 
+(defun coffee-custom ()
+  "coffee-mode-hook"
+ (set (make-local-variable 'tab-width) 2))
+(add-hook 'coffee-mode-hook
+  '(lambda() (coffee-custom)))
+;; compile-on-save: compile coffee-script into js on save
+(add-hook 'coffee-mode-hook '(lambda () (coffee-cos-mode t)))
 
 ;; graphviz
 (require 'graphviz-dot-mode)
