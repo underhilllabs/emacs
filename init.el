@@ -40,7 +40,7 @@
 ;; Rinari, ruby on rails mode
 (add-to-list 'load-path "~/.emacs.d/vendor/rinari/")
 (require 'rinari)
-
+;;(require 'color-theme-library)
 ;; gas-mode for assembly
 ;; (require 'gas-mode)
 ;; (add-to-list 'auto-mode-alist '("\\.S\\'" . gas-mode))
@@ -143,7 +143,8 @@
 ;   use square brackets for function keys, mouse keys, non-ascii chars
 ;;  (global-set-key [f6] 'line-to-top-of-window)
 
-(add-to-list 'load-path "/usr/share/emacs23/site-lisp/emacs-goodies-el/")
+;; debian package maintainer fucked up emacs23 emacs-goodies so use this old directory
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/emacs-goodies-el/")
 
 ;; auth stuff
 (require 'mystuff-init)
@@ -263,14 +264,15 @@
 ;; display images, graphs after code execution
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
 ;; Org-babel
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((emacs-lisp . t)
-   (R . t)
-   (ruby . t)
-   (dot . t)
-   (python . t)
-   (scheme . t)))
+;; NOT WORKING in 11.10
+;; (org-babel-do-load-languages
+;;  'org-babel-load-languages
+;;  '((emacs-lisp . t)
+;;    (R . t)
+;;    (ruby . t)
+;;    (dot . t)
+;;    (python . t)
+;;    (scheme . t)))
 
 ; Do not prompt to confirm evaluation
 ; This may be dangerous - make sure you understand the consequences
@@ -307,7 +309,7 @@
 ;; start each session by opening .emacs file (for now)
 (find-file "~/.emacs.d/init.el")
 (find-file "~/cheatsheet_emacs.txt")
-(find-file "~/notes/")
+;;(find-file "~/notes/")
 
 
 (require 'edit-server)
