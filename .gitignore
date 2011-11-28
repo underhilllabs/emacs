@@ -16,3 +16,5 @@ session*
 /processing-mode.el
 /wlrc.el
 /url/cookies
+/vendors/org-toodledo.el
+/vendors/w3mexerpt.el
