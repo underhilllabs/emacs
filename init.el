@@ -32,7 +32,15 @@
 (add-to-list 'load-path "~/.emacs.d/vendor/emacs-oauth/")
 (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'load-path "~/elisp_stuff/")
-(add-to-list 'load-path "~/elisp_stuff/color-theme-seamus/")
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/jde/lisp")
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/cedet-common")
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/cedet-contrib")
+(load-file "/usr/share/emacs/site-lisp/cedet-common/cedet.el")
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/elib")
+; java developer environment
+(require 'jde)
+
+;(add-to-list 'load-path "~/elisp_stuff/color-theme-seamus/")
 ;;(add-to-list 'load-path "~/vendor/pink-bliss/")
 ;; solarized theme
 ;;(add-to-list 'load-path "~/.emacs.d/vendor/emacs-color-theme-solarized/")
@@ -122,13 +130,13 @@
 ;;(setq ido-enable-flex-matching t) ;; enable fuzzy matching
 
 ;; Do you a HASKELL!!
-(load "~/.emacs.d/vendor/haskell-mode/haskell-site-file")
-(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+;(load "~/.emacs.d/vendor/haskell-mode/haskell-site-file")
+;(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+;(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
-;;(setq jde-global-classpath "/home/bart/javastuff/")
-;; (getenv "CLASSPATH")
-;;(setq jde-global-classpath nil)
+(setq jde-global-classpath "/home/bart/javastuff/")
+(getenv "CLASSPATH")
+(setq jde-global-classpath nil)
 ;;;;;;;;;;;;;;;;;;
 ;   How to set and unset key bindings 
 ;
@@ -167,7 +175,7 @@
 (color-theme-robin-hood)
 (require 'color-theme-tango)
 (require 'color-theme-zenburn)
-(require 'color-theme-seamus)
+;(require 'color-theme-seamus)
 ;;(require 'color-theme-solarized)
 ;;(require 'color-theme-inkpot)
 ;;(require 'color-theme-desertex)
@@ -292,7 +300,7 @@
 (setq org-mobile-files
       (list "~/notes/metro-hw.org"))
 (setq org-mobile-inbox-for-pull "~/notes/mobiles.org")
-;; add keyboard shortcut to run org-mobile-push
+; add keyboard shortcut to run org-mobile-push
 (define-key org-mode-map "\C-cp" 'org-mobile-push)
 
 ;; org-mode toodledo
@@ -308,8 +316,8 @@
 
 ;; start each session by opening .emacs file (for now)
 (find-file "~/.emacs.d/init.el")
-(find-file "~/cheatsheet_emacs.txt")
-;;(find-file "~/notes/")
+;(find-file "~/cheatsheet_emacs.txt")
+(find-file "~/notes/")
 
 
 (require 'edit-server)
@@ -459,10 +467,10 @@
   ;; If there is more than one, they won't work right.
  '(jde-enable-abbrev-mode t)
  '(jde-global-classpath (quote ("/home/bart/javastuff/:.")))
- '(jde-jdk-registry (quote (("1.6.0.22" . "/usr/lib/jvm/java-6-sun/"))))
+ '(jde-jdk-registry (quote (("1.6.0.22" . "/usr/lib/jvm/java-6-openjdk/"))))
  '(lj-fill-function (quote lj-fill-by-paragraph))
  '(org-agenda-files (quote ("~/notes/metro-hw.org" )))
- '(org-modules (quote (org-bbdb org-bibtex org-docview org-gnus org-info org-jsinfo org-habit org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m))))
+ '(org-modules (quote (org-bbdb org-bibtex org-gnus org-info org-jsinfo org-habit org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m))))
 
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
