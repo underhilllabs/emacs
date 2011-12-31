@@ -44,6 +44,7 @@
 ;;(add-to-list 'load-path "~/vendor/pink-bliss/")
 ;; solarized theme
 ;;(add-to-list 'load-path "~/.emacs.d/vendor/emacs-color-theme-solarized/")
+;;(require 'color-theme-seamus)
 
 ;; Rinari, ruby on rails mode
 (add-to-list 'load-path "~/.emacs.d/vendor/rinari/")
@@ -52,6 +53,8 @@
 ;; gas-mode for assembly
 ;; (require 'gas-mode)
 ;; (add-to-list 'auto-mode-alist '("\\.S\\'" . gas-mode))
+
+
 
 ;; coffee-mode!!
 (add-to-list 'load-path "~/.emacs.d/vendor/coffee-mode")
@@ -137,6 +140,9 @@
 (setq jde-global-classpath "/home/bart/javastuff/")
 (getenv "CLASSPATH")
 (setq jde-global-classpath nil)
+(setq bsh-jar "/usr/share/java/bsh.jar")
+(setq jde-jar-file "/usr/share/java/jde.jar")
+
 ;;;;;;;;;;;;;;;;;;
 ;   How to set and unset key bindings 
 ;
@@ -175,7 +181,7 @@
 (color-theme-robin-hood)
 (require 'color-theme-tango)
 (require 'color-theme-zenburn)
-;(require 'color-theme-seamus)
+(require 'color-theme-seamus)
 ;;(require 'color-theme-solarized)
 ;;(require 'color-theme-inkpot)
 ;;(require 'color-theme-desertex)
@@ -207,6 +213,11 @@
 (autoload 'php-mode "php-mode" "Major mode for editing php code." t)
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
+
+;; drupal-mode
+(add-to-list 'load-path "~/.emacs.d/vendor/drupal-mode/")
+(autoload 'drupal-mode "drupal-mode" "Major mode for editing drupal php " t)
+(add-to-list 'auto-mode-alist '("\\.\\(module\\|test\\|install\\|theme\\)$" . drupal-mode))
 
 ;;
 ;; org-mode
@@ -303,8 +314,15 @@
 ; add keyboard shortcut to run org-mobile-push
 (define-key org-mode-map "\C-cp" 'org-mobile-push)
 
+
+;; (setq browse-url-browser-function 'w3m-browse-url)
+;; (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
+;; optional keyboard short-cut
+;; (global-set-key "\C-xm" 'browse-url-at-point)
+
 ;; org-mode toodledo
-;;(require 'org-toodledo.el)
+(add-to-list 'load-path "~/.emacs.d/vendor/org-toodledo/")
+(require 'org-toodledo)
 
 ;; ========== Place Backup Files in Specific Directory ==========
 ;; Enable backup files.
@@ -317,7 +335,7 @@
 ;; start each session by opening .emacs file (for now)
 (find-file "~/.emacs.d/init.el")
 ;(find-file "~/cheatsheet_emacs.txt")
-(find-file "~/notes/")
+;(find-file "~/notes/")
 
 
 (require 'edit-server)
@@ -343,10 +361,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Twitter-mode
-;;(add-to-list 'load-path "~/.emacs.d/vendor/twittering-mode/")
-;;(require 'twittering-mode)
-;;(global-set-key "\C-ct" 'twittering-mode)
-;;(setq twittering-icon-mode t)
+(add-to-list 'load-path "~/.emacs.d/vendor/twittering-mode/")
+(require 'twittering-mode)
+(global-set-key "\C-ct" 'twittering-mode)
+(setq twittering-icon-mode t)
 
 ;;; lilypond stuff
 ;(autoload 'LilyPond-mode "lilypond-mode")
@@ -371,6 +389,7 @@
          :exclude "draft*" ; TODO fix
          :section-numbers nil
          :auto-preamble nil
+         :html-preamble "<div class='site-header'><img src=mu-logo.png></div>"
          :auto-postamble nil
          :recursive t
          :style-extra "<link rel='stylesheet' href='http://majorursa.net/my-orgmode.css' type='text/css'/><link href='http://fonts.googleapis.com/css?family=Ubuntu:regular,italic,bold' rel='stylesheet' type='text/css'/>"
@@ -399,58 +418,10 @@
          )
         ("blog" :components ("blog-posts" "blog-pages" "blog-static"))))
       
+(setq org-export-html-preamble "<div class='site-header'><div class=logo><img src=mu-logo.png></div><div class=site-title><h1 class=site-title>Major Ursa</h1></div></div>")
+(setq org-export-html-postamble "<div class=footer><p><a href=\"http://orgmode.org\"><img src=\"./org-mode.png\" alt=\"Made with Org Mode\"/></a></p></div>")
 
-;; #+LaTeX_CLASS: beamer in org files
-;; (unless (boundp 'org-export-latex-classes)
-;;   (setq org-export-latex-classes nil))
-;; (add-to-list 'org-export-latex-classes
-;;   ;; beamer class, for presentations
-;;   '("beamer"
-;;      "\\documentclass[11pt]{beamer}\n
-;;       \\mode<{{{beamermode}}}>\n
-;;       \\usetheme{{{{beamertheme}}}}\n
-;;       \\usecolortheme{{{{beamercolortheme}}}}\n
-;;       \\beamertemplateballitem\n
-;;       \\setbeameroption{show notes}
-;;       \\usepackage[utf8]{inputenc}\n
-;;       \\usepackage[T1]{fontenc}\n
-;;       \\usepackage{hyperref}\n
-;;       \\usepackage{color}
-;;       \\usepackage{listings}
-;;       \\lstset{numbers=none,language=[ISO]C++,tabsize=4,
-;;   frame=single,
-;;   basicstyle=\\small,
-;;   showspaces=false,showstringspaces=false,
-;;   showtabs=false,
-;;   keywordstyle=\\color{blue}\\bfseries,
-;;   commentstyle=\\color{red},
-;;   }\n
-;;       \\usepackage{verbatim}\n
-;;       \\institute{{{{beamerinstitute}}}}\n          
-;;        \\subject{{{{beamersubject}}}}\n"
-
-;;      ("\\section{%s}" . "\\section*{%s}")
-     
-;;      ("\\begin{frame}[fragile]\\frametitle{%s}"
-;;        "\\end{frame}"
-;;        "\\begin{frame}[fragile]\\frametitle{%s}"
-;;        "\\end{frame}")))
-;; article class
-;; (add-to-list 'org-export-latex-classes
-;;              '("article"
-;;                "\\documentclass{article}"
-;;                ("\\section{%s}" . "\\section*{%s}")))  
-
-;; (add-to-list 'org-export-latex-classes
-;;              '("article"
-;;                "\\documentclass{article}"
-;;                ("\\section{%s}" . "\\section*{%s}")
-;;                ("\\subsection{%s}" . "\\subsection*{%s}")
-;;                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-;;                ("\\paragraph{%s}" . "\\paragraph*{%s}")
-;;                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-
+(setq ede-project-placeholder-cache-file ".ede-projects-quit-crashing-my-fucking-emacs"):
 ;;; This was installed by package-install.el.
 ;;; This provides support for the package system and
 ;;; interfacing with ELPA, the package archive.
@@ -465,11 +436,12 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(bsh-jar "/usr/share/java/bsh.jar")
  '(jde-enable-abbrev-mode t)
  '(jde-global-classpath (quote ("/home/bart/javastuff/:.")))
  '(jde-jdk-registry (quote (("1.6.0.22" . "/usr/lib/jvm/java-6-openjdk/"))))
  '(lj-fill-function (quote lj-fill-by-paragraph))
- '(org-agenda-files (quote ("~/notes/metro-hw.org" )))
+ '(org-agenda-files (quote ("~/notes/drupal/drupal_issues.org" "~/notes/metro-hw.org")))
  '(org-modules (quote (org-bbdb org-bibtex org-gnus org-info org-jsinfo org-habit org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m))))
 
 (custom-set-faces
