@@ -24,6 +24,11 @@
 ;; UNDO ctrl-z
 (global-set-key (kbd "C-z") 'undo)
 
+;; nano
+(define-key global-map "\C-c\C-w" 'word-count)
+(define-key global-map "\C-c\C-r" 'revert-buffer)
+(add-hook 'markdown-mode-hook 'longlines-mode)
+
 ;; turn off opening splash screen
 (setq inhibit-splash-screen t inhibit-startup-echo-area-message t)
 
