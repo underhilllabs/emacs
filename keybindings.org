@@ -7,6 +7,15 @@
 | C-c =      | align-regexp   | align region by passed in regexp (handy for lining up assignments |
 |            |                |                                                                   |
 
+** Bookmarks
+|------------|--------------------------|---------------------------------|
+| keybinding | elisp function           | notes                            |
+|------------+--------------------------+----------------------------------|
+| C-x r m    |                          | make a bookmark                  |
+| C-x r l    |                          | list all bookmarks                  |
+| C-x r b    |                          | jump to a bookmark                  |
+
+
 
 ** Custom Keybindings
 |------------+--------------------------+----------------------------------|
