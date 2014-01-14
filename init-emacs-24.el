@@ -45,12 +45,12 @@
 ;
 ; Evil-mode configuration
 ;===========================
-;;(require 'evil-leader)
-;;(global-evil-leader-mode)
-; set , as leader key
-;;(evil-leader/set-leader ",")
-
-; the toggle key, since I already have C-z mapped to undo.
+; I want to use C-e for end-of-line
+(define-key evil-normal-state-map "\C-e" 'evil-end-of-line)
+(define-key evil-insert-state-map "\C-e" 'end-of-line)
+;; fix evil mode and its crappy undo tree
+(setq evil-want-fine-undo t)
+;; the toggle key, since I already have C-z mapped to undo.
 (setq evil-toggle-key "\C-c\C-e")
 (require 'evil)
 (evil-mode 1)
