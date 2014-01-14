@@ -41,17 +41,25 @@
 (global-set-key "\C-x\C-b" 'list-buffers)
 
 ;============================
+;
 ; yep, it's come to this...
 ;
 ; Evil-mode configuration
+;
 ;===========================
+
 ; I want to use C-e for end-of-line
 (define-key evil-normal-state-map "\C-e" 'evil-end-of-line)
 (define-key evil-insert-state-map "\C-e" 'end-of-line)
+(define-key evil-visual-state-map "\C-e" 'evil-end-of-line)
+(define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
+
 ;; fix evil mode and its crappy undo tree
 (setq evil-want-fine-undo t)
+
 ;; the toggle key, since I already have C-z mapped to undo.
 (setq evil-toggle-key "\C-c\C-e")
+
 (require 'evil)
 (evil-mode 1)
 
