@@ -41,13 +41,24 @@
 (global-set-key "\C-x\C-b" 'list-buffers)
 
 ;============================
-;
 ; yep, it's come to this...
 ;
 ; Evil-mode configuration
-;
 ;===========================
 
+;; the toggle key, since I already have C-z mapped to undo.
+;; must set toggle-key before requiring 'evil
+(setq evil-toggle-key "\C-c\C-e")
+
+(require 'evil)
+;; let's try toggling between emacs and vim-normal mode
+(setcdr evil-insert-state-map nil)
+(define-key evil-insert-state-map [escape] 'evil-normal-state)
+
+; use Emacs C-d
+(define-key evil-normal-state-map "\C-d" 'evil-delete-char)
+(define-key evil-insert-state-map "\C-d" 'evil-delete-char)
+(define-key evil-visual-state-map "\C-d" 'evil-delete-char)
 
 ; use the Emacs C-k
 (define-key evil-normal-state-map "\C-k" 'kill-line)
@@ -60,13 +71,6 @@
 (define-key evil-visual-state-map "\C-e" 'evil-end-of-line)
 (define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
 
-;; fix evil mode and its crappy undo tree
-(setq evil-want-fine-undo t)
-
-;; the toggle key, since I already have C-z mapped to undo.
-(setq evil-toggle-key "\C-c\C-e")
-
-(require 'evil)
 (evil-mode 1)
 
 ;;;;;;;;;;;;;;;;;;
