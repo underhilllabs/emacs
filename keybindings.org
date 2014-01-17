@@ -17,6 +17,7 @@
 | C-x v +    | vc-pull                  | pull changes down from origin  |
 | C-x v i    | vc-register              | add file to working tree (same as C-x v v if file not yet added) | 
 | C-x v D    | vc-root-diff             | show diffs between entire working tree and head |
+| C-x v g    | vc-annotate              | git blame                          |
 
 
 ** Bookmarks
