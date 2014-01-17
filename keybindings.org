@@ -16,6 +16,8 @@
 | C-x v u    | vc-revert                | undo changes in buffer (reset to head) |
 | C-x v +    | vc-pull                  | pull changes down from origin  |
 | C-x v i    | vc-register              | add file to working tree (same as C-x v v if file not yet added) | 
+| C-x v D    | vc-root-diff             | show diffs between entire working tree and head |
+
 
 ** Bookmarks
 |------------|--------------------------|---------------------------------|
