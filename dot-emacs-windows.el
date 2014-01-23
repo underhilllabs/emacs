@@ -14,12 +14,31 @@
 ;; this wraps lines at word boundaries and moves and kills lines by visual line
 (global-visual-line-mode 1) 
 
-;; Emacs VI Layer
-(require 'evil)
-; I want to use C-e for end-of-line
-(define-key evil-normal-state-map "\C-e" 'evil-end-of-line)
 ; the toggle key, since I already have C-z mapped to 
 (setq evil-toggle-key "\C-c\C-e")
+
+;; Emacs VI Layer
+(require 'evil)
+;; let's try toggling between emacs and vim-normal mode
+(setcdr evil-insert-state-map nil)
+(define-key evil-insert-state-map [escape] 'evil-normal-state)
+
+; use Emacs C-d
+(define-key evil-normal-state-map "\C-d" 'evil-delete-char)
+(define-key evil-insert-state-map "\C-d" 'evil-delete-char)
+(define-key evil-visual-state-map "\C-d" 'evil-delete-char)
+
+; use the Emacs C-k
+(define-key evil-normal-state-map "\C-k" 'kill-line)
+(define-key evil-insert-state-map "\C-k" 'kill-line)
+(define-key evil-visual-state-map "\C-k" 'kill-line)
+
+; I want to use C-e for end-of-line
+(define-key evil-normal-state-map "\C-e" 'evil-end-of-line)
+(define-key evil-insert-state-map "\C-e" 'end-of-line)
+(define-key evil-visual-state-map "\C-e" 'evil-end-of-line)
+(define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
+
 ;; FUCK evil mode and its crappy undo tree
 (setq evil-want-fine-undo t)
 (evil-mode 1)
@@ -30,7 +49,7 @@
         (otherwise "sshx")))
 ;; load AFTER elpa is loaded!
 ;(load-theme 'misterioso t)
-(load-theme 'solarized-dark t)
+(load-theme 'solarized-dark 
 ;; [in .emacs]
 ;; Use 12-pt Consolas as default font
 (set-face-attribute 'default nil
