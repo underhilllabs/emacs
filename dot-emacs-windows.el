@@ -49,7 +49,7 @@
         (otherwise "sshx")))
 ;; load AFTER elpa is loaded!
 ;(load-theme 'misterioso t)
-(load-theme 'solarized-dark 
+(load-theme 'solarized-dark) 
 ;; [in .emacs]
 ;; Use 12-pt Consolas as default font
 (set-face-attribute 'default nil
