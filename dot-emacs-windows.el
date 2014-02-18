@@ -20,8 +20,8 @@
 ;; Emacs VI Layer
 (require 'evil)
 ;; let's try toggling between emacs and vim-normal mode
-(setcdr evil-insert-state-map nil)
-(define-key evil-insert-state-map [escape] 'evil-normal-state)
+;;(setcdr evil-insert-state-map nil)
+;;(define-key evil-insert-state-map [escape] 'evil-normal-state)
 
 ; use Emacs C-d
 (define-key evil-normal-state-map "\C-d" 'evil-delete-char)
@@ -49,7 +49,10 @@
         (otherwise "sshx")))
 ;; load AFTER elpa is loaded!
 ;(load-theme 'misterioso t)
-(load-theme 'solarized-dark) 
+(load-theme 'solarized-dark t)
+(setq evil-default-cursor t)
+(set-cursor-color "khaki")
+(blink-cursor-mode 0)
 ;; [in .emacs]
 ;; Use 12-pt Consolas as default font
 (set-face-attribute 'default nil
@@ -129,5 +132,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(cursor ((t (:background "gray" :foreground "#002b36" :inverse-video t)))))
+
 
