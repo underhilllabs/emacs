@@ -1,6 +1,12 @@
 ;;; Bart's .emacs file
 ;;;
 
+;; map PageUp and PageDown on a mac
+(if (eq system-type 'darwin)
+  (progn 
+    (global-set-key (kbd "<prior>") 'beginning-of-line)
+    (global-set-key (kbd "<next>") 'end-of-line)))
+
 ;; emacs 24 packages!!
 (require 'package)
 (package-initialize)
