@@ -1,12 +1,14 @@
 ;;; Bart's .emacs file
 ;;;
 
-;; map PageUp and PageDown on a mac
+;; map PageUp and PageDown on a mac to beginning/end of line
 (if (eq system-type 'darwin)
-  (progn 
-    (global-set-key (kbd "<prior>") 'beginning-of-line)
-    (global-set-key (kbd "<next>") 'end-of-line)))
-
+    (progn 
+      (global-set-key (kbd "<home>") 'beginning-of-line)
+      (global-set-key (kbd "<end>") 'end-of-line)
+      (global-set-key (kbd "<prior>") 'scroll-down-command)
+      (global-set-key (kbd "<next>") 'scroll-up-command)))
+      
 ;; emacs 24 packages!!
 (require 'package)
 (package-initialize)
